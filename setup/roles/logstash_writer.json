@@ -9,24 +9,30 @@
       "names": [
         "logs-generic-default",
         "logstash-*",
-        "ecs-logstash-*"
+        "ecs-logstash-*",
+        "app-*"
       ],
       "privileges": [
         "write",
         "create",
         "create_index",
         "manage",
-        "manage_ilm"
+        "manage_ilm",
+        "auto_configure",
+        "all"
       ]
     },
     {
       "names": [
         "logstash",
-        "ecs-logstash"
+        "ecs-logstash",
+        "app"
       ],
       "privileges": [
         "write",
-        "manage"
+        "manage",
+        "delete",
+        "create_index"
       ]
     }
   ]
