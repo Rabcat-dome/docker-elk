@@ -57,6 +57,9 @@ services:
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+      - ./logstash/log/out:/usr/share/logstash/log/out:ro,Z
+      - ./logstash/log/err:/usr/share/logstash/log/err:ro,Z
+      - ./logstash/log/sincedb:/usr/share/logstash/log/sincedb:ro,Z
     ports:
       - "5044:5044"
       - "50000:50000/tcp"
@@ -70,6 +73,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    # command: sudo chmod -R 770 /usr/share/logstash/log /usr/share/logstash/log/sincedb/sincedbout /usr/share/logstash/log/sincedb/sincedberr
 
   kibana:
     build:
