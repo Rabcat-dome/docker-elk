@@ -27,6 +27,7 @@ services:
       - elasticsearch
 
   elasticsearch:
+    restart: always
     build:
       context: elasticsearch/
       args:
@@ -50,6 +51,7 @@ services:
       - elk
 
   logstash:
+    restart: always
     build:
       context: logstash/
       args:
@@ -76,6 +78,7 @@ services:
     # command: sudo chmod -R 770 /usr/share/logstash/log /usr/share/logstash/log/sincedb/sincedbout /usr/share/logstash/log/sincedb/sincedberr
 
   kibana:
+    restart: always
     build:
       context: kibana/
       args:
