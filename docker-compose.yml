@@ -47,6 +47,7 @@ services:
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
+    restart: always
     networks:
       - elk
 
@@ -73,6 +74,7 @@ services:
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
     networks:
       - elk
+    restart: always
     depends_on:
       - elasticsearch
     # command: sudo chmod -R 770 /usr/share/logstash/log /usr/share/logstash/log/sincedb/sincedbout /usr/share/logstash/log/sincedb/sincedberr
@@ -93,6 +95,7 @@ services:
       KIBANA_FLEET_SETUP: '1'
     networks:
       - elk
+    restart: always
     depends_on:
       - elasticsearch
 
