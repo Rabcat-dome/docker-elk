@@ -63,6 +63,7 @@ services:
       # - ./logstash/log/out:/var/logstash/log/out:ro,Z
       # - ./logstash/log/err:/var/logstash/log/err:ro,Z
       # - ./logstash/log/sincedb:/tmp/logstash/log/sincedb:rw,Z
+    cpus: 0.5
     ports:
       # - "5044:5044"
       # - "50000:50000/tcp"
