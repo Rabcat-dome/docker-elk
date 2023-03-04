@@ -64,10 +64,10 @@ services:
       - ./logstash/log/err:/var/logstash/log/err:ro,Z
       - ./logstash/log/sincedb:/tmp/logstash/log/sincedb:rw,Z
     ports:
-      - "5044:5044"
-      - "50000:50000/tcp"
-      - "50000:50000/udp"
-      - "9600:9600"
+      # - "5044:5044"
+      # - "50000:50000/tcp"
+      # - "50000:50000/udp"
+      # - "9600:9600"
       - "12201:12201"
     environment:
       LS_JAVA_OPTS: -Xmx1g -Xms1g
