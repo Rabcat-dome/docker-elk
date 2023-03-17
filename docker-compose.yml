@@ -99,6 +99,20 @@ services:
     restart: always
     depends_on:
       - elasticsearch
+  
+  # Container to monitor services running inside other containers
+  metricbeat:
+    build: ./metricbeat
+    container_name: metricbeat-services
+    command: -e
+    environment:
+      - "WAIT_FOR_HOSTS=elasticsearch:9200 kibana:5601"
+      - "HOST_ELASTICSEARCH=elasticsearch:9200"
+      - "HOST_KIBANA=kibana:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
 
 networks:
   elk:
