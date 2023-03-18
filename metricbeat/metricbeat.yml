@@ -27,7 +27,7 @@ metricbeat.modules:
 #   hosts: ["mongodb:27017"]
 
 #------------------------------- API Health Check -------------------------------
-- module: apitest
+- module: http
   enabled: true
   metricsets: ["status"]
   period: 30s
