@@ -28,11 +28,14 @@ metricbeat.modules:
 
 #------------------------------- API Health Check -------------------------------
 - module: http
+  metricsets: ["server"]
   enabled: true
   # metricsets: ["status"]
   period: 30s
-  hosts: ["https://ctrmapi.pttplc.com"]
-  path: "/smt_deal/LIVE"
+  host: "https://ctrmapi.pttplc.com"
+  server.paths: 
+    - path: "/smt_deal/LIVE"
+      namespace: "dev"
 
 # #------------------------------- Redis Module -------------------------------
 # - module: redis
