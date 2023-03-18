@@ -106,7 +106,7 @@ services:
     container_name: metricbeat-services
     command: -e
     environment:
-      - "WAIT_FOR_HOSTS=elasticsearch:9200"
+      - "WAIT_FOR_HOSTS=elasticsearch:9200 kibana:5601"
       - "HOST_ELASTICSEARCH=elasticsearch:9200"
       - "HOST_KIBANA=kibana:5601"
     depends_on:
