@@ -4,7 +4,7 @@ heartbeat.monitors:
 - type: http
   enabled: true
   name: "CTRM_DealAPI"
-  tag: ["API"]
+  tag: "API"
   schedule: '@every 30s'
   urls: ["https://ctrmapi.pttplc.com/smt_deal/LIVE"]
   ipv4: true
