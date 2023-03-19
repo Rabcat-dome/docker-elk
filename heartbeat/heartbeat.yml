@@ -1,4 +1,4 @@
-metricbeat.modules:
+heartbeat.monitors:
 
 #------------------------------- RabbitMQ Module -------------------------------
 # - module: rabbitmq
@@ -27,14 +27,18 @@ metricbeat.modules:
 #   hosts: ["mongodb:27017"]
 
 #------------------------------- API Health Check -------------------------------
-- module: http
-  metricsets: ["่json"]
+- type: http
   enabled: true
-  # metricsets: ["status"]
-  period: 30s
-  host: "ctrmapi.pttplc.com"
-  path: "/smt_deal/LIVE"
-  namespace: "dev"
+  schedule: '@every 30s'
+  urls: ["https://ctrmapi.pttplc.com/smt_deal/LIVE"]
+  ipv4: true
+  ipv6: true
+  mode: any
+  timeout: 5s
+  check.request:
+    method: "GET"
+  check.response:
+    status: 200
 
 # #------------------------------- Redis Module -------------------------------
 # - module: redis
@@ -53,24 +57,21 @@ metricbeat.modules:
 
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
   username: "elastic"
   password: "changeme"
-  hosts: ["${HOST_ELASTICSEARCH}"]
-
-setup.kibana:
-  host: "${HOST_KIBANA}"
+  
+# setup.kibana:
+#   host: "${HOST_KIBANA}"
 
 #============================== Dashboards =====================================
 # These settings control loading the sample dashboards to the Kibana index. Loading
 # the dashboards is disabled by default and can be enabled either by setting the
 # options here, or by using the `-setup` CLI flag.
-setup.dashboards.enabled: true
+processors:
+- add_docker_metadata: ~
 
-logging.level: warning
-logging.to_files: true
-logging.to_syslog: false
-logging.files:
-  path: /var/log/metricbeat
-  name: metricbeat.log
-  keepfiles: 2
-  permissions: 0644
+monitoring.enabled: true
+
+
+logging.to_files: false

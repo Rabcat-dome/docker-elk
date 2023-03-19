@@ -98,14 +98,15 @@ services:
       - elasticsearch
   
   # Container to monitor services running inside other containers
-  metricbeat:
-    build: ./metricbeat
-    container_name: metricbeat-services
-    command: -e
-    environment:
-      - "WAIT_FOR_HOSTS=elasticsearch:9200 kibana:5601"
-      - "HOST_ELASTICSEARCH=elasticsearch:9200"
-      - "HOST_KIBANA=kibana:5601"
+  heartbeat:
+    image: "docker.elastic.co/beats/heartbeat:${ELASTIC_VERSION}"
+    container_name: heartbeat
+    command: heartbeat -e -strict.perms=false
+    user: root
+    volumes:
+      #Mount the Heartbeat configuration so users can make edits.
+      - ./heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - elasticsearch
     networks:
