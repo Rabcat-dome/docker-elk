@@ -2,7 +2,7 @@ heartbeat.monitors:
 
 #------------------------------- API Health Check -------------------------------
 - type: http
-  enabled: true
+  enabled: false
   name: "CTRM_DealAPI"
   tags: ["api"]
   schedule: '@every 30s'
