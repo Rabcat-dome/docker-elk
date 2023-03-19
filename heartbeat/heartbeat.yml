@@ -4,7 +4,7 @@ heartbeat.monitors:
 - type: http
   enabled: true
   name: "CTRM_DealAPI"
-  tag: "API"
+  tags: ["api"]
   schedule: '@every 30s'
   urls: ["https://ctrmapi.pttplc.com/smt_deal/LIVE"]
   ipv4: true
@@ -20,7 +20,7 @@ heartbeat.monitors:
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
   username: "elastic"
-  password: "changeme"
+  password: ${KIBANA_SYSTEM_PASSWORD}
 
 #============================== Dashboards =====================================
 # These settings control loading the sample dashboards to the Kibana index. Loading
