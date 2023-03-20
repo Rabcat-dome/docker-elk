@@ -17,6 +17,21 @@ heartbeat.monitors:
   check.response:
     status: 200
 
+- type: http
+  enabled: true
+  name: "SOAP_WebService_wsdl"
+  tags: ["soap"]
+  schedule: '@every 30m'
+  urls: ["http://172.19.100.52:8000/bcp/VrpSolverService.asmx?wsdl"]
+  ipv4: true
+  ipv6: true
+  mode: any
+  timeout: 8s
+  check.request:
+    method: "GET"
+  check.response:
+    status: 200
+
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
