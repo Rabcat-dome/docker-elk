@@ -2,15 +2,15 @@ heartbeat.monitors:
 
 #------------------------------- API Health Check -------------------------------
 - type: http
-  enabled: false
-  name: "CTRM_DealAPI"
-  tags: ["api"]
-  schedule: '@every 30s'
-  urls: ["https://ctrmapi.pttplc.com/smt_deal/LIVE"]
+  enabled: true
+  name: "SOAP_WebService"
+  tags: ["soap"]
+  schedule: '@every 60m'
+  urls: ["http://172.19.100.52:8000/bcp"]
   ipv4: true
   ipv6: true
   mode: any
-  timeout: 5s
+  timeout: 8s
   check.request:
     method: "GET"
   check.response:
