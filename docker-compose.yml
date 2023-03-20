@@ -107,7 +107,6 @@ services:
     command: heartbeat -e -strict.perms=false
     user: root
     environment:
-      ELASTIC_VERSION: 
       KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
     volumes:
       #Mount the Heartbeat configuration so users can make edits.

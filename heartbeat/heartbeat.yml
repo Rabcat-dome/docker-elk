@@ -5,7 +5,7 @@ heartbeat.monitors:
   enabled: true
   name: "SOAP_WebService"
   tags: ["soap"]
-  schedule: '@every 60m'
+  schedule: '@every 30m'
   urls: ["http://172.19.100.52:8000/bcp"]
   ipv4: true
   ipv6: true
