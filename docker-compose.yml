@@ -27,6 +27,7 @@ services:
       - elasticsearch
 
   elasticsearch:
+    container_name: elasticsearch
     restart: always
     build:
       context: elasticsearch/
@@ -51,6 +52,7 @@ services:
       - elk
 
   logstash:
+    container_name: logstash
     restart: always
     build:
       context: logstash/
@@ -79,6 +81,7 @@ services:
     # command: sudo chmod -R 770 /usr/share/logstash/log /usr/share/logstash/log/sincedb/sincedbout /usr/share/logstash/log/sincedb/sincedberr
 
   kibana:
+    container_name: kibana
     restart: always
     build:
       context: kibana/
