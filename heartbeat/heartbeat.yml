@@ -9,6 +9,7 @@ heartbeat.monitors:
   urls: ["http://172.19.100.52:8000/bcp"]
   ipv4: true
   ipv6: true
+  max_redirects: 2
   mode: any
   timeout: 8s
   check.request:
