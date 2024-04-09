@@ -120,6 +120,10 @@ services:
 networks:
   elk:
     driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.82.0/24
 
 volumes:
   setup:
