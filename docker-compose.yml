@@ -100,30 +100,45 @@ services:
     depends_on:
       - elasticsearch
   
-  # Container to monitor services running inside other containers
-  heartbeat:
-    image: "docker.elastic.co/beats/heartbeat:${ELASTIC_VERSION}"
-    container_name: heartbeat
-    command: heartbeat -e -strict.perms=false
-    user: root
-    environment:
-      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+  # heartbeat:
+  #   image: "docker.elastic.co/beats/heartbeat:${ELASTIC_VERSION}"
+  #   container_name: heartbeat
+  #   command: heartbeat -e -strict.perms=false
+  #   user: root
+  #   environment:
+  #     KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+  #   volumes:
+  #     - ./heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   depends_on:
+  #     - elasticsearch
+  #   networks:
+  #     - elk
+  metricbeat:
+    container_name: metricbeat
+    image: docker.elastic.co/beats/metricbeat:${ELASTIC_VERSION}
     volumes:
-      #Mount the Heartbeat configuration so users can make edits.
-      - ./heartbeat/heartbeat.yml:/usr/share/heartbeat/heartbeat.yml
-      - /var/run/docker.sock:/var/run/docker.sock
+      - ./metricbeat/metricbeat.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
+    environment:
+      ELASTICSEARCH_HOSTS: elasticsearch:9200
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD:-}
+      KIBANA_HOST: kibana:5601
     depends_on:
       - elasticsearch
+      - kibana
     networks:
       - elk
+    user: root
+    command: metricbeat -e -system.hostfs=/hostfs
 
 networks:
   elk:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.82.0/24
 
 volumes:
   setup:
