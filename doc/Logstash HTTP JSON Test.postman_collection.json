@@ -1,0 +1,103 @@
+{
+  "info": {
+    "_postman_id": "158f6617-d37f-484f-8662-b5b04d437938",
+    "name": "Logstash HTTP JSON Test",
+    "description": "Collection to test Logstash HTTP input",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "4750476"
+  },
+  "item": [
+    {
+      "name": "Send log to Logstash",
+      "protocolProfileBehavior": {
+        "followRedirects": false
+      },
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"level\": \"info\",\n    \"message\": \"{\\\"custom_1\\\":\\\"test_11\\\",\\\"custom_2\\\":\\\"test_2\\\"}\",\n    \"timestamp\": \"{{timestamp}}\",\n    \"application\": \"MyApp2\",\n    \"user\": \"user123\",\n    \"user_event\": \"login\"\n}"
+        },
+        "url": {
+          "raw": "http://172.19.100.76:12201",
+          "protocol": "http",
+          "host": [
+            "172",
+            "19",
+            "100",
+            "76"
+          ],
+          "port": "12201"
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete elk",
+      "protocolProfileBehavior": {
+        "followRedirects": false
+      },
+      "request": {
+        "auth": {
+          "type": "basic",
+          "basic": [
+            {
+              "key": "password",
+              "value": "changeme",
+              "type": "string"
+            },
+            {
+              "key": "username",
+              "value": "elastic",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://172.19.100.56:9200/app-varp-production-2025.02",
+          "protocol": "http",
+          "host": [
+            "172",
+            "19",
+            "100",
+            "56"
+          ],
+          "port": "9200",
+          "path": [
+            "app-varp-production-2025.02"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "pm.environment.set(\"timestamp\", new Date().toISOString());"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ]
+}
